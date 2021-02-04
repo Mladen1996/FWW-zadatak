@@ -25,54 +25,56 @@ class TableData extends React.Component{
             const allState=item.state.map( state =>{
                 const AllUsers=state.users.map(user=>{
                     return(
-                        <div class="user-info">
-                            <p>{item.country}</p>
-                            <p>{state.name}</p>
-                            <p>{user.fullName}</p>
-                            <p>{user.balance}</p>
-                            <p>{user.isActive ? 'true': 'false'}</p>
-                            <p>{user.registered}</p>
-                        </div>
+                        <tr>
+                            <td>{item.country}</td>
+                            <td>{state.name}</td>
+                            <td>{user.fullName}</td>
+                            <td>{user.balance}</td>
+                            <td>{user.isActive ? 'true': 'false'}</td>
+                            <td>{user.registered}</td>
+                        </tr>
                     )
                 })
                 return(
-                    <div>
-                       
+                   
+                    <tbody>
                     {
                         AllUsers
                     }
-                    </div>
+                    </tbody>
                     
                 )
             }
 
             )
             return(
-                <div key={item.id}>
-                    <div class="table-header">
-                     <p>Country</p>
-                    <p>State</p>
-                    <p>Full name</p>
-                    <p>Balance</p>
-                    <p>isActive</p>
-                    <p>Registered</p>
-                    </div>
+                    <>
                     {
                         allState
                     }
-                </div>
+                    </>
                
 
             )
         })
        
         return(
-            <>
-           
+            
+            <table>
+                    <thead>
+                    <tr>
+                     <th>Country</th>
+                    <th>State</th>
+                    <th>Full name</th>
+                    <th>Balance</th>
+                    <th>isActive</th>
+                    <th>Registered</th>
+                    </tr>
+                    </thead>
              {
                  allCountry
              }
-            </>
+            </table>
         )
     }
 }

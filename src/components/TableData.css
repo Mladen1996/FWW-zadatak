@@ -1,4 +1,4 @@
-.user-info,.table-header{
-    display: flex;
-    justify-content: space-around;
+table{
+    width: 80%;
+    margin: 0 auto;
 }
