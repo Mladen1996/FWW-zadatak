@@ -1,0 +1,4 @@
+.user-info,.table-header{
+    display: flex;
+    justify-content: space-around;
+}
