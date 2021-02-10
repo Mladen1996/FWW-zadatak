@@ -7,25 +7,25 @@ class TableData extends React.Component{
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.filterByCountry = this.filterByCountry.bind(this);
-       
+        this.handleChangeS = this.handleChangeS.bind(this);
         this.filterByState = this.filterByState.bind(this);
-        
+        this.handleChangeF = this.handleChangeF.bind(this);
         this.filterByFullName = this.filterByFullName.bind(this);
-       
+        this.handleChangeA = this.handleChangeA.bind(this);
         this.filterByActive = this.filterByActive.bind(this);
+        this.handleChangeBM = this.handleChangeBM.bind(this);
+        this.handleChangeBV = this.handleChangeBV.bind(this);
         this.filterByBalance = this.filterByBalance.bind(this);
         this.filterByRegistered = this.filterByRegistered.bind(this);
-
-        this.filterBy = this.filterBy.bind(this);
         this.state={
             data:[],
             temp:[],
-            country:"",
-            state:"",
-            fullName:"",
-            isActive:"",
-            balanceM:"",
-            balanceV:""
+            value:"",
+            valueS:"",
+            valueF:"",
+            valueA:"",
+            valueManje:"",
+            valueVise:""
         }
 
        
@@ -65,11 +65,11 @@ class TableData extends React.Component{
       }*/
 
 
-      filterByCountry(){
+      filterByCountry(event){
        
         
             const itemNames = this.state.data.filter( 
-                (eachObj) => eachObj.country==this.state.country 
+                (eachObj) => eachObj.country==this.state.value 
    
             );
        
@@ -78,13 +78,13 @@ class TableData extends React.Component{
                
             })
 
-        
+            event.preventDefault();
       
       }
 
-      filterByState(){
+      filterByState(event){
        
-    var cat = this.state.state;
+    var cat = this.state.valueS;
     var result = this.state.data.reduce((a, o) => { 
      
       var filtered = o.state.filter(({name}) => cat === name);
@@ -101,13 +101,13 @@ console.log(result);
 
 this.setState({data: result});
 
-
+event.preventDefault();
   
   }
 
-  filterByFullName(){
+  filterByFullName(event){
        
-    var cat = this.state.fullName;
+    var cat = this.state.valueF;
     var result = this.state.data.reduce((a, o) => { 
      
 
@@ -120,9 +120,11 @@ this.setState({data: result});
             b.push(Object.assign({}, c, {users: filtered2}));
           }
 
+          console.log(filtered2);
           return b;
       },[]);
 
+      console.log(filtered);
       
      if (filtered.length) { 
       
@@ -132,15 +134,17 @@ this.setState({data: result});
       return a;
     }, []);
 
+console.log(result);
 
 this.setState({data: result});
 
+event.preventDefault();
   
   }
 
-  filterByActive(){
+  filterByActive(event){
        
-    var cat = (this.state.isActive == 'true');
+    var cat = (this.state.valueA == 'true');
     var result = this.state.data.reduce((a, o) => { 
      
 
@@ -156,10 +160,11 @@ this.setState({data: result});
             b.push(Object.assign({}, c, {users: filtered2}));
           }
 
-          
+          console.log(filtered2);
           return b;
       },[]);
 
+      console.log(filtered);
       
      if (filtered.length) { 
       
@@ -169,17 +174,19 @@ this.setState({data: result});
       return a;
     }, []);
 
-
+console.log(result);
 
 this.setState({data: result});
 
+event.preventDefault();
   
   }
 
-  filterByBalance(){
-
-    var catManje = this.state.balanceM;
-    var catVise = this.state.balanceV;
+  filterByBalance(event){
+    console.log(event.target.balanceM.value);
+    console.log(event.target.balanceV.value);
+    var catManje = this.state.valueManje;
+    var catVise = this.state.valueVise;
     var result = this.state.data.reduce((a, o) => { 
      
 
@@ -214,6 +221,7 @@ this.setState({data: result});
 
 this.setState({data: result});
 
+event.preventDefault();
   }
 
 
@@ -225,36 +233,36 @@ this.setState({data: result});
             console.log(d.getDate());
         
         }
-
-        filterBy(event){
-         
-            this.filterByCountry();
-            this.filterByState();
-            this.filterByFullName();
-           /* this.filterByBalance();
-            this.filterByActive();*/
-
-            event.preventDefault();
-        }
     
       handleChange(event) {
-      
-
-        const value = event.target.value;
-        this.setState({
-          [event.target.name]: value
-        });
-        /*this.setState({
-            country: event.target.value,
-            state:event.target.state.value,
-            fullName: event.target.fullName.value,
-            isActive:event.target.isActive.value,
-            balanceM: event.target.balanceM.value,
-            balanceV:event.target.balanceV.value,
-        });*/
+        
+        this.setState({value: event.target.value});
       }
 
-       
+       handleChangeS(event) {
+        this.setState({valueS: event.target.value});
+      }
+
+      handleChangeF(event) {
+        this.setState({valueF: event.target.value});
+      }
+
+      handleChangeA(event) {
+        this.setState({valueA: event.target.value});
+      }
+
+      handleChangeBM(event) {
+        this.setState({
+            valueManje: event.target.value,
+           
+        });
+      }
+      handleChangeBV(event) {
+        this.setState({
+           
+            valueVise: event.target.value,
+        });
+      }
       
    
     render(){
@@ -306,31 +314,42 @@ this.setState({data: result});
 
         return(
             <>
-             <form onSubmit={this.filterBy}>
+             <form onSubmit={this.filterByCountry}>
         <label>
-        
-          <input type="text" placeholder="Country" name="country" value={this.state.country} onChange={this.handleChange} />
+         Filter by country:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
         </label>
-        
+         <input type="submit" value="Submit" />
+        </form>
+        <form onSubmit={this.filterByState}>
         <label>
-        
-          <input type="text" placeholder="State" name="state" value={this.state.state} onChange={this.handleChange} />
+         Filter by state:
+          <input type="text" value={this.state.valueS} onChange={this.handleChangeS} />
         </label>
-       
+         <input type="submit" value="Submit" />
+        </form>
+
+        <form onSubmit={this.filterByFullName}>
         <label>
-        
-          <input type="text" placeholder="Full name" name="fullName" value={this.state.fullName} onChange={this.handleChange} />
+         Filter by full name:
+          <input type="text" value={this.state.valueF} onChange={this.handleChangeF} />
         </label>
-        
+         <input type="submit" value="Submit" />
+        </form>
+        <form onSubmit={this.filterByActive}>
         <label>
-    
-          <input type="text" placeholder="IsActive" name="isActive" value={this.state.isActive} onChange={this.handleChange} />
+         Filter by isActive:
+          <input type="text" value={this.state.valueA} onChange={this.handleChangeA} />
         </label>
-        
-        <label class="balance">
-      
-         <input type="text" placeholder="Balance from" name="balanceM" value={this.state.balanceM} onChange={this.handleChange} />
-         <input type="text" placeholder="Balance to" name="balanceV" value={this.state.balanceV} onChange={this.handleChange} />
+         <input type="submit" value="Submit" />
+        </form>
+
+        <form onSubmit={this.filterByBalance}>
+        <label>
+         Filter by balance:
+          
+         <input type="text" name="balanceM" value={this.state.valueManje} onChange={this.handleChangeBM} />
+         <input type="text" name="balanceV" value={this.state.valueVise} onChange={this.handleChangeBV} />
         </label>
          <input type="submit" value="Submit" />
         </form>

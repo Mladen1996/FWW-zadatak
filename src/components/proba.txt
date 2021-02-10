@@ -1,0 +1,221 @@
+const Row = ({id, title, priority, type, complete}) => (
+  <div className="row">
+    <div>{id}</div>
+    <div>{title}</div>
+    <div>{priority}</div>
+    <div>{type}</div>    
+    <div>{complete}</div>    
+  </div>
+);
+
+/*
+  Table component written as an ES6 class
+*/
+class Table extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [
+        {id: 403, title: 'Task 403', priority: 'High', type: 'Improvement', complete: 100}, 
+        {id: 532, title: 'Task 532', priority: 'Medium', type: 'Improvement', complete: 30}, 
+        {id: 240, title: 'Task 240', priority: 'High', type: 'Story', complete: 66},
+      ],
+    };
+    
+    // http://reactkungfu.com/2015/07/why-and-how-to-bind-methods-in-your-react-component-classes/
+    // bind the context for compareBy & sortBy to this component instance
+    this.compareBy.bind(this);
+    this.sortBy.bind(this);
+  }
+  
+  compareBy(key) {
+    return function (a, b) {
+      if (a[key] < b[key]) return -1;
+      if (a[key] > b[key]) return 1;
+      return 0;
+    };
+  }
+ 
+  sortBy(key) {
+    let arrayCopy = [...this.state.data];
+    arrayCopy.sort(this.compareBy(key));
+    this.setState({data: arrayCopy});
+  }
+    
+  render() {
+    const rows = this.state.data.map( (rowData) => <Row {...rowData} />);
+
+    return (
+      <div className="table">
+        <div className="header">
+          <div onClick={() => this.sortBy('id')} >ID</div>
+          <div onClick={() => this.sortBy('title')}>Title</div>
+          <div onClick={() => this.sortBy('priority')}>Priority</div>
+          <div onClick={() => this.sortBy('type')}>Issue Type</div>
+          <div onClick={() => this.sortBy('complete')}>% Complete</div>
+        </div>
+        <div className="body">
+          {rows}
+        </div>
+      </div>
+    );
+    
+  }
+}
+
+/*
+ * Render the above component into the div#app
+ */
+ReactDOM.render(<Table />, document.getElementById('app'));
+
+
+  const sorted = Object.values(this.state.data).map(
+            itemf=>{
+                const statef=itemf.state.map( state =>{
+                    return state.name
+                });
+                return statef
+            }
+        );
+
+        console.log(sorted);
+
+
+const AllUsers=state.users.map((user,i)=>{
+                   
+                        return(
+                            <tr>
+                                <td>{item.country}</td>
+                                <td>{state.name}</td>
+                                <td >{user.fullName}</td>
+                                <td>{user.balance}</td>
+                                <td>{user.isActive ? 'true': 'false'}</td>
+                                <td>{user.registered}</td>
+                            </tr>
+                        )
+                    
+                    
+                })
+
+
+sortBy(){
+    
+        const sorted = Object.values(this.state.data).sort((a, b) =>{
+            
+           a.country.localeCompare(b.country);
+           /* const temp=Object.values(a.state);
+            console.log(a);*/
+        });
+        
+        console.log(sorted);
+        this.setState({data: sorted});
+   
+}
+
+
+let itemNames = nestedObject.filter( 
+            (eachObj,i) => 
+            {
+                const data=eachObj.itemDetails[i].filter(
+                    (item,j) =>{
+                        return item[j].price > 700; 
+                    }
+                )
+               return data;
+            }
+            );
+
+
+const alldata=[];
+            let itemNames = this.state.mydata.filter( 
+                (eachObj) => 
+                {
+                    
+                    const data=eachObj.itemDetails.filter(
+                        (item,i)=>{
+                            console.log(item.price);
+                            return item.price > 750;
+                        }
+                    )
+                    console.log(data);
+                    alldata.push(data);
+                    return data;
+                  
+                }
+                
+            );
+       
+       
+            this.setState({
+                mydata:alldata,
+               
+            })
+
+
+            const AllUsers=state.users.map((user,i)=>{
+                   
+                        return(
+                            <tr>
+                                <td>{item.country}</td>
+                                <td>{state.name}</td>
+                                <td >{user.fullName}</td>
+                                <td>{user.balance}</td>
+                                <td>{user.isActive ? 'true': 'false'}</td>
+                                <td>{user.registered}</td>
+                            </tr>
+                        )
+                    
+                    
+                })
+
+
+                var catManje = this.state.valueManje;
+    var catVise = this.state.valueVise;
+    var result = this.state.data.reduce((a, o) => { 
+     
+
+      var filtered=o.state.reduce((b,c)=>{
+        var filtered2 = c.users.filter(({balance}) => 
+        {
+            return balance < '2000';
+        }
+       );
+
+        if (filtered2.length) { 
+      
+            b.push(Object.assign({}, c, {users: filtered2}));
+          }
+
+          console.log(filtered2);
+          return b;
+      },[]);
+
+      console.log(filtered);
+      
+     if (filtered.length) { 
+      
+        a.push(Object.assign({}, o, {state: filtered}));
+      }
+      
+      return a;
+    }, []);
+
+console.log(result);
+
+this.setState({data: result});
+
+event.preventDefault();
+
+
+filterByBalance(){
+      const a='$2,972.88';
+      const b='2000';
+      var number = Number(a.replace(/[^0-9.-]+/g,""));
+
+      if(number>b){
+          console.log('uspesno');
+      }
+      else{
+        console.log('neuspesno');
+      }
+  }
